@@ -24,7 +24,7 @@ Configurar con la id, el nombre y la descripción en **config.xml**
 
 ### 2. Crear una página de perfil. Usar storage para manejar el nickname
 
-Para cambiar el nombre del tab, el componente que maneja el menu-tab esta en **src/app/tabs**. Ahi podemos manejar tanto el html como el controlador ts. Entonces podemos dejar el primer tab como: 
+Para cambiar el nombre del tab, el componente que maneja el menu-tab esta en **src/app/tabs**. Ahi podemos manejar tanto el html como el controlador ts. Entonces podemos dejar el primer tab como:
 
 ```html
   <ion-tab-button tab="tab1">
