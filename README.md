@@ -166,6 +166,86 @@ Finalmente, el borrar los datos almacenados, que será gatillado desde un botón
 
 ### 3. Crear una página que permita tomar fotografías
 
+Cambiamos el html que maneja el menu-tab:
+
+```html
+  <ion-tab-button tab="tab2">
+      <ion-icon name="camera-outline"></ion-icon>
+      <ion-label>Cámara</ion-label>
+  </ion-tab-button>
+```
+
+Instalamos el plugin:
+
+```bash
+ionic cordova plugin add cordova-plugin-camera
+npm install @ionic-native/camera
+```
+
+Lo agregamos al módilo de la app:
+
+```ts
+import { Camera } from '@ionic-native/camera/ngx';
+//...
+providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    NativeStorage,
+    Camera
+  ],
+//...
+```
+
+Ahora lo agregamos importamos al controlador de **tab2**, incluyendo el objeto para las opciones que debemos configurar.
+
+```ts
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+//..
+constructor(
+    private camera: Camera
+  ) {}
+```
+
+Debemos iniciarlizar, antes del constructor, el array donde iremos guardando las imágenes y las opciones para la cámara:
+
+```ts
+  images: Array<string> = [];
+
+  opciones: CameraOptions = {
+    destinationType: this.camera.DestinationType.DATA_URL,
+    targetWidth: 1000,
+    targetHeight: 1000,
+    quality: 100
+  };
+```
+
+Agregamos la función que, al tomar la foto, agregará la imagen, como texto base64, a nuestro array:
+
+```ts
+tomarFoto(){
+    this.camera.getPicture( this.opciones )
+      .then(imageData => {
+        this.images.push(`data:image/jpeg;base64,${imageData}`);
+      })
+      .catch(error => {
+        console.error( error );
+      });
+  }
+```
+
+Finalmente agregamos a la vista, un boton para tomar la foto y una lista de cards con imágenes para mostrar las fotos como galería:
+
+```html
+<ion-button color="medium" expand="full" (click)="tomarFoto()"><ion-icon name="camera-outline"></ion-icon> Tomar Fotografía </ion-button>
+
+  <ion-list *ngIf="images">
+    <ion-card *ngFor="let img of images.reverse()" class="col-6">
+      <ion-img [src]="img"></ion-img>
+    </ion-card>
+  </ion-list>
+```
+
+Un bonito desafío puede ser guardar el array de imágenes (que no son mas que un string) a través de native storage que ya tenemos instalado y rescatarlo al volver a abrir la aplicación.
+
 ### 4. Agregar una nueva página que muestre la geolocalización actual y en tiempo real
 
 ### 5. Mostrar la dirección de la ubicación

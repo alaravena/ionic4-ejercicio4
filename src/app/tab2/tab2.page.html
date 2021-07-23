@@ -1,16 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="medium">
     <ion-title>
-      Tab 2
+      Cámara
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content >
+
+  <ion-button color="medium" expand="full" (click)="tomarFoto()"><ion-icon name="camera-outline"></ion-icon> Tomar Fotografía </ion-button>
+
+  <ion-list *ngIf="images">
+    <ion-card *ngFor="let img of images.reverse()" class="col-6">
+      <ion-img [src]="img"></ion-img>
+    </ion-card>
+  </ion-list>
 
 </ion-content>
