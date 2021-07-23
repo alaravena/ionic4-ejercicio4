@@ -1,17 +1,19 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      {{bienvenido}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-item>
+    <ion-label position="stacked">Ingresar Nickname</ion-label>
+    <ion-input clearInput value="clear me" placeholder="Nickname" [(ngModel)]="nickname"></ion-input>
+  </ion-item>
+
+    <ion-button expand="block" (click)="guardarNombre()"><ion-icon name="person-circle-outline"></ion-icon> Guardar</ion-button>
+    <ion-button expand="block" (click)="eliminarNombre()" color="danger"><ion-icon name="trash-outline"></ion-icon> Borrar</ion-button>
+
 </ion-content>
